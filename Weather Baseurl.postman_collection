@@ -1,0 +1,777 @@
+{
+	"info": {
+		"_postman_id": "f46ae335-24bf-43a3-b71d-f5ec46b93c03",
+		"name": "Weather Baseurl L",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "21489209"
+	},
+	"item": [
+		{
+			"name": "Current weather",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)\r",
+							"const schema = {\r",
+							"    \"type\":\"object\",\r",
+							"    \"required\":[\"location\",\"current\"],\r",
+							"    \"properties\":{\r",
+							"        \"location\":{\r",
+							"            \"type\":\"object\",\r",
+							"            \"required\":[\"name\",\"region\",\"country\",\"lat\",\"lon\",\"tz_id\",\"localtime_epoch\",\"localtime\"],\r",
+							"            \"properties\":{\r",
+							"                \"name\":{\"type\":\"string\"},\r",
+							"                \"region\":{\"type\":\"string\"},\r",
+							"                \"country\":{\"type\":\"string\"},\r",
+							"                \"lat\":{\"type\":\"number\"},\r",
+							"                \"lon\":{\"type\":\"number\"},\r",
+							"                \"tz_id\":{\"type\":\"string\"},\r",
+							"                \"localtime_epoch\":{\"type\":\"number\"},\r",
+							"                \"localtime\":{\"type\":\"string\"},\r",
+							"            }\r",
+							"            },\r",
+							"        \"current\":{\r",
+							"            \"type\":\"object\",\r",
+							"            \"required\":[\"last_updated_epoch\",\"last_updated\",\"temp_c\",\"temp_f\",\"is_day\",\"condition\",\"wind_mph\",\"wind_kph\",\"wind_degree\",\"wind_dir\",\"pressure_mb\",\"pressure_in\",\"precip_mm\",\"precip_in\",\"humidity\",\"cloud\",\"feelslike_c\",\"feelslike_f\",\"vis_km\",\"vis_miles\",\"uv\",\"gust_mph\",\"gust_kph\"],\r",
+							"            \"properties\":{\r",
+							"                \"last_updated_epoch\":{\"type\":\"number\"},\r",
+							"                \"last_updated\":{\"type\":\"string\"},\r",
+							"                \"temp_c\":{\"type\":\"number\"},\r",
+							"                \"temp_f\":{\"type\":\"number\"},\r",
+							"                \"is_day\":{\"type\":\"number\"},\r",
+							"                \"condition\":{\r",
+							"                    \"type\":\"object\",\r",
+							"                    \"required\":[\"text\",\"icon\",\"code\"],\r",
+							"                    \"properties\":{\r",
+							"                        \"text\":{\"type\":\"string\"},\r",
+							"                        \"icon\":{\"type\":\"string\"},\r",
+							"                        \"code\":{\"type\":\"number\"},\r",
+							"                    }\r",
+							"                    },\r",
+							"                \"wind_mph\":{\"type\":\"number\"},\r",
+							"                \"wind_kph\":{\"type\":\"number\"},\r",
+							"                \"wind_degree\":{\"type\":\"number\"},\r",
+							"                \"wind_dir\":{\"type\":\"string\"},\r",
+							"                \"pressure_mb\":{\"type\":\"number\"},\r",
+							"                \"pressure_in\": {\"type\":\"number\"},\r",
+							"                \"precip_mm\": {\"type\":\"number\"},\r",
+							"                \"precip_in\": {\"type\":\"number\"},\r",
+							"                \"humidity\": {\"type\":\"number\"},\r",
+							"                \"cloud\": {\"type\":\"number\"},\r",
+							"                \"feelslike_c\": {\"type\":\"number\"},\r",
+							"                \"feelslike_f\": {\"type\":\"number\"},\r",
+							"                \"vis_km\": {\"type\":\"number\"},\r",
+							"                \"vis_miles\": {\"type\":\"number\"},\r",
+							"                \"uv\": {\"type\":\"number\"},\r",
+							"                \"gust_mph\": {\"type\":\"number\"},\r",
+							"                \"gust_kph\":{\"type\":\"number\"},\r",
+							"              \r",
+							"            }\r",
+							"            },\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"pm.test(\"Run tests. Expect response have all required properties\",function() {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"})\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/current.json?q={{q}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"current.json"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{q}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Forecast",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)\r",
+							"const schema = {\r",
+							"    \"type\":\"object\",\r",
+							"    \"required\":[\"location\",\"current\",\"forecast\"],\r",
+							"    \"properties\":{\r",
+							"        \"location\":{\r",
+							"            \"type\":\"object\",\r",
+							"            \"required\":[\"name\",\"region\",\"country\",\"lat\",\"lon\",\"tz_id\",\"localtime_epoch\",\"localtime\"],\r",
+							"            \"properties\":{\r",
+							"                \"name\":{\"type\":\"string\"},\r",
+							"                \"region\":{\"type\":\"string\"},\r",
+							"                \"country\":{\"type\":\"string\"},\r",
+							"                \"lat\":{\"type\":\"number\"},\r",
+							"                \"lon\":{\"type\":\"number\"},\r",
+							"                \"tz_id\":{\"type\":\"string\"},\r",
+							"                \"localtime_epoch\":{\"type\":\"number\"},\r",
+							"                \"localtime\":{\"type\":\"string\"},\r",
+							"            }\r",
+							"            },\r",
+							"        \"current\":{\r",
+							"            \"type\":\"object\",\r",
+							"            \"required\":[\"last_updated_epoch\",\"last_updated\",\"temp_c\",\"temp_f\",\"is_day\",\"condition\",\"wind_mph\",\"wind_kph\",\"wind_degree\",\"wind_dir\",\"pressure_mb\",\"pressure_in\",\"precip_mm\",\"precip_in\",\"humidity\",\"cloud\",\"feelslike_c\",\"feelslike_f\",\"vis_km\",\"vis_miles\",\"uv\",\"gust_mph\",\"gust_kph\"],\r",
+							"            \"properties\":{\r",
+							"                \"last_updated_epoch\":{\"type\":\"number\"},\r",
+							"                \"last_updated\":{\"type\":\"string\"},\r",
+							"                \"temp_c\":{\"type\":\"number\"},\r",
+							"                \"temp_f\":{\"type\":\"number\"},\r",
+							"                \"is_day\":{\"type\":\"number\"},\r",
+							"                \"condition\":{\r",
+							"                    \"type\":\"object\",\r",
+							"                    \"required\":[\"text\",\"icon\",\"code\"],\r",
+							"                    \"properties\":{\r",
+							"                        \"text\":{\"type\":\"string\"},\r",
+							"                        \"icon\":{\"type\":\"string\"},\r",
+							"                        \"code\":{\"type\":\"number\"},\r",
+							"                    }\r",
+							"                    },\r",
+							"                \"wind_mph\":{\"type\":\"number\"},\r",
+							"                \"wind_kph\":{\"type\":\"number\"},\r",
+							"                \"wind_degree\":{\"type\":\"number\"},\r",
+							"                \"wind_dir\":{\"type\":\"string\"},\r",
+							"                \"pressure_mb\":{\"type\":\"number\"},\r",
+							"                \"pressure_in\": {\"type\":\"number\"},\r",
+							"                \"precip_mm\": {\"type\":\"number\"},\r",
+							"                \"precip_in\": {\"type\":\"number\"},\r",
+							"                \"humidity\": {\"type\":\"number\"},\r",
+							"                \"cloud\": {\"type\":\"number\"},\r",
+							"                \"feelslike_c\": {\"type\":\"number\"},\r",
+							"                \"feelslike_f\": {\"type\":\"number\"},\r",
+							"                \"vis_km\": {\"type\":\"number\"},\r",
+							"                \"vis_miles\": {\"type\":\"number\"},\r",
+							"                \"uv\": {\"type\":\"number\"},\r",
+							"                \"gust_mph\": {\"type\":\"number\"},\r",
+							"                \"gust_kph\":{\"type\":\"number\"},\r",
+							"\r",
+							"            \"forecast\":{\r",
+							"                \"type\":\"object\",\r",
+							"                \"required\":[\"forecastday\",\"astro\",\"hour\"],\r",
+							"                \"properties\":{\r",
+							"                \"forecastday\":{\"type\":\"string\"},\r",
+							"                \"astro\":{\"type\":\"string\"},\r",
+							"                \"country\":{\"type\":\"string\"},\r",
+							"                \"hour\":{\"type\":\"string\"},\r",
+							"                \r",
+							"            \r",
+							"            } }\r",
+							"              \r",
+							"            }\r",
+							"            },\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"pm.test(\"Run tests. Expect response have all required properties\",function() {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"})\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/forecast.json?q={{q}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"forecast.json"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{q}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)\r",
+							"const schema = {\r",
+							"    \"type\":\"array\",\r",
+							"    \"required\":[\"id\",\"name\",\"region\",\"country\",\"lat\",\"lon\",\"url\"],\r",
+							"    \"properties\":{\r",
+							"                \"id\":{\"type\":\"number\"},\r",
+							"                \"name\":{\"type\":\"string\"},\r",
+							"                \"region\":{\"type\":\"string\"},\r",
+							"                \"country\":{\"type\":\"number\"},\r",
+							"                \"lat\":{\"type\":\"number\"},\r",
+							"                \"lon\":{\"type\":\"number\"},\r",
+							"                \"url\":{\"type\":\"string\"},\r",
+							"            }}\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.test(\"Run tests. Expect response have all required properties\",function() {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"})\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/search.json?q={{q}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"search.json"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{q}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "History",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)\r",
+							"const schema = {\r",
+							"    \"type\":\"object\",\r",
+							"    \"required\":[\"location\",\"forecast\"],\r",
+							"    \"properties\":{\r",
+							"        \"location\":{\r",
+							"            \"type\":\"object\",\r",
+							"            \"required\":[\"name\",\"region\",\"country\",\"lat\",\"lon\",\"tz_id\",\"localtime_epoch\",\"localtime\"],\r",
+							"            \"properties\":{\r",
+							"                \"name\":{\"type\":\"string\"},\r",
+							"                \"region\":{\"type\":\"string\"},\r",
+							"                \"country\":{\"type\":\"string\"},\r",
+							"                \"lat\":{\"type\":\"number\"},\r",
+							"                \"lon\":{\"type\":\"number\"},\r",
+							"                \"tz_id\":{\"type\":\"string\"},\r",
+							"                \"localtime_epoch\":{\"type\":\"number\"},\r",
+							"                \"localtime\":{\"type\":\"string\"},\r",
+							"            }\r",
+							"            },\r",
+							"        \"forecast\":{\r",
+							"            \"type\":\"object\",\r",
+							"            \"required\":[\"forecastday\"],\r",
+							"            \"properties\":{\r",
+							"                \"forecastday\":{\r",
+							"                    \"type\":\"array\",\r",
+							"                    \"required\":[\"date\",\"date_epoch\",\"astro\",\"hour\"],\r",
+							"                    \"properties\":{\r",
+							"                        \"date\":{\"type\":\"string\"},\r",
+							"                        \"date_epoch\":{\"type\":\"number\"},\r",
+							"                        \"astro\":{\r",
+							"                            \"type\":\"object\",\r",
+							"                            \"required\":[\"sunrise\",\"sunset\",\"moonrise\",\"moonset\",\"moon_phase\",\"moon_illumination\"],\r",
+							"                            \"properties\":{\r",
+							"                                \"sunrise\":{\"type\":\"string\"},\r",
+							"                                \"sunset\":{\"type\":\"string\"},\r",
+							"                                \"moonrise\":{\"type\":\"string\"},\r",
+							"                                \"moonset\":{\"type\":\"string\"},\r",
+							"                                \"moon_phase\":{\"type\":\"string\"},\r",
+							"                                \"moon_illumination\":{\"type\":\"string\"},\r",
+							"                            }\r",
+							"\r",
+							"\r",
+							"                            },\r",
+							"                        \"hour\":{\"type\":\"array\"}\r",
+							"                    }\r",
+							"                }}\r",
+							"            }\r",
+							"            },\r",
+							"    }\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"pm.test(\"Run tests. Expect response have all required properties\",function() {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"})\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/history.json?q={{q}}&dt=2010-01-01",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"history.json"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{q}}"
+						},
+						{
+							"key": "dt",
+							"value": "2010-01-01"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Future",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)\r",
+							"const schema = {\r",
+							"    \"type\":\"object\",\r",
+							"    \"required\":[\"location\",\"forecast\"],\r",
+							"    \"properties\":{\r",
+							"        \"location\":{\r",
+							"            \"type\":\"object\",\r",
+							"            \"required\":[\"name\",\"region\",\"country\",\"lat\",\"lon\",\"tz_id\",\"localtime_epoch\",\"localtime\"],\r",
+							"            \"properties\":{\r",
+							"                \"name\":{\"type\":\"string\"},\r",
+							"                \"region\":{\"type\":\"string\"},\r",
+							"                \"country\":{\"type\":\"string\"},\r",
+							"                \"lat\":{\"type\":\"number\"},\r",
+							"                \"lon\":{\"type\":\"number\"},\r",
+							"                \"tz_id\":{\"type\":\"string\"},\r",
+							"                \"localtime_epoch\":{\"type\":\"number\"},\r",
+							"                \"localtime\":{\"type\":\"string\"},\r",
+							"            }\r",
+							"            },\r",
+							"        \"forecast\":{\r",
+							"            \"type\":\"object\",\r",
+							"            \"required\":[\"forecastday\"],\r",
+							"            \"properties\":{\r",
+							"                \"forecastday\":{\r",
+							"                    \"type\":\"array\",\r",
+							"                    \"required\":[\"date\",\"date_epoch\",\"day\",\"astro\",\"hour\"],\r",
+							"                    \"properties\":{\r",
+							"                        \"date\":{\"type\":\"string\"},\r",
+							"                        \"date_epoch\":{\"type\":\"number\"},\r",
+							"                        \"day\":{\r",
+							"                            \"type\":\"object\",\r",
+							"                            \"required\":[\"maxtemp_c\",\"maxtemp_f\",\"mintemp_c\",\"mintemp_f\"],\r",
+							"                            \"properties\":{\r",
+							"                                \"maxtemp_c\":{\"type\":\"number\"},\r",
+							"                                \"maxtemp_f\":{\"type\":\"number\"},\r",
+							"                                \"mintemp_c\":{\"type\":\"number\"},\r",
+							"                                \"mintemp_f\":{\"type\":\"number\"},\r",
+							"\r",
+							"                            }\r",
+							"                            },\r",
+							"                        \"astro\":{\r",
+							"                            \"type\":\"object\",\r",
+							"                            \"required\":[\"sunrise\",\"sunset\",\"moonrise\",\"moonset\",\"moon_phase\",\"moon_illumination\"],\r",
+							"                            \"properties\":{\r",
+							"                                \"sunrise\":{\"type\":\"string\"},\r",
+							"                                \"sunset\":{\"type\":\"string\"},\r",
+							"                                \"moonrise\":{\"type\":\"string\"},\r",
+							"                                \"moonset\":{\"type\":\"string\"},\r",
+							"                                \"moon_phase\":{\"type\":\"string\"},\r",
+							"                                \"moon_illumination\":{\"type\":\"string\"},\r",
+							"                            }\r",
+							"                            },\r",
+							"                        \"hour\":{\"type\":\"array\"}\r",
+							"                    }\r",
+							"                }}\r",
+							"            }\r",
+							"            },\r",
+							"    }\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"pm.test(\"Run tests. Expect response have all required properties\",function() {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"})\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/future.json?q={{q}}&dt=2023-01-01",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"future.json"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{q}}"
+						},
+						{
+							"key": "dt",
+							"value": "2023-01-01"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Time Zone",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)\r",
+							"const schema = {\r",
+							"    \"type\":\"object\",\r",
+							"    \"required\":[\"location\"],\r",
+							"    \"properties\":{\r",
+							"        \"location\":{\r",
+							"            \"type\":\"object\",\r",
+							"            \"required\":[\"name\",\"region\",\"country\",\"lat\",\"lon\",\"tz_id\",\"localtime_epoch\",\"localtime\"],\r",
+							"            \"properties\":{\r",
+							"                \"name\":{\"type\":\"string\"},\r",
+							"                \"region\":{\"type\":\"string\"},\r",
+							"                \"country\":{\"type\":\"string\"},\r",
+							"                \"lat\":{\"type\":\"number\"},\r",
+							"                \"lon\":{\"type\":\"number\"},\r",
+							"                \"tz_id\":{\"type\":\"string\"},\r",
+							"                \"localtime_epoch\":{\"type\":\"number\"},\r",
+							"                \"localtime\":{\"type\":\"string\"},\r",
+							"            }}}}\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"pm.response.to.have.status(200);\r",
+							"pm.test(\"Run tests. Expect response have all required properties\",function() {\r",
+							"pm.response.to.have.jsonSchema(schema);\r",
+							"})\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/timezone.json?q={{q}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"timezone.json"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{q}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sports",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)\r",
+							"const schema = {\r",
+							"    \"type\":\"object\",\r",
+							"    \"required\":[\"football\",\"cricket\",\"golf\"],\r",
+							"    \"properties\":{\r",
+							"        \"football\":{\r",
+							"            \"type\":\"array\",\r",
+							"            \"required\":[\"stadium\",\"country\",\"region\",\"tournament\",\"start\",\"match\"],\r",
+							"            \"properties\":{\r",
+							"                \"stadium\":{\"type\":\"string\"},\r",
+							"                \"country\":{\"type\":\"string\"},\r",
+							"                \"region\":{\"type\":\"string\"},\r",
+							"                \"tournament\":{\"type\":\"string\"},\r",
+							"                \"start\":{\"type\":\"string\"},\r",
+							"                \"match\":{\"type\":\"string\"},\r",
+							"            } ,\r",
+							"        \"cricket\":{\"type\":\"array\"},\r",
+							"        \"golf\":{\"type\":\"array\"}\r",
+							"        }}}\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"pm.test(\"Run tests. Expect response have all required properties\",function() {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"})\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/sports.json?q={{q}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"sports.json"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{q}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Astronomy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)\r",
+							"const schema = {\r",
+							"    \"type\":\"object\",\r",
+							"    \"required\":[\"location\",\"astronomy\"],\r",
+							"    \"properties\":{\r",
+							"        \"location\":{\r",
+							"            \"type\":\"object\",\r",
+							"            \"required\":[\"name\",\"region\",\"country\",\"lat\",\"lon\",\"tz_id\",\"localtime_epoch\",\"localtime\"],\r",
+							"            \"properties\":{\r",
+							"                \"name\":{\"type\":\"string\"},\r",
+							"                \"region\":{\"type\":\"string\"},\r",
+							"                \"country\":{\"type\":\"string\"},\r",
+							"                \"lat\":{\"type\":\"number\"},\r",
+							"                \"lon\":{\"type\":\"number\"},\r",
+							"                \"tz_id\":{\"type\":\"string\"},\r",
+							"                \"localtime_epoch\":{\"type\":\"number\"},\r",
+							"                \"localtime\":{\"type\":\"string\"},\r",
+							"            }\r",
+							"            },\r",
+							"        \"astronomy\":{\r",
+							"            \"type\":\"object\",\r",
+							"            \"required\":[\"astro\"],\r",
+							"            \"properties\":{\r",
+							"                \"astro\":{\r",
+							"                    \"type\":\"object\",\r",
+							"                    \"required\":[\"sunrise\",\"sunset\",\"moonrise\",\"moonset\",\"moon_phase\",\"moon_illumination\"],\r",
+							"                    \"properties\":{\r",
+							"                        \"sunrise\":{\"type\":\"string\"},\r",
+							"                        \"sunset\": {\"type\":\"string\"},\r",
+							"                        \"moonrise\": {\"type\":\"string\"},\r",
+							"                        \"moonset\": {\"type\":\"string\"},\r",
+							"                        \"moon_phase\": {\"type\":\"string\"},\r",
+							"                        \"moon_illumination\": {\"type\":\"string\"},\r",
+							"\r",
+							"                    }\r",
+							"                }\r",
+							"    }}}\r",
+							"}\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"pm.test(\"Run tests. Expect response have all required properties\",function() {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"})\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/astronomy.json?q={{q}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"astronomy.json"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{q}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IP Lookup",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)\r",
+							"const schema = {\r",
+							"    \"type\":\"object\",\r",
+							"    \"required\":[\"ip\",\"type\",\"continent_code\",\"continent_name\",\"country_code\",\"country_name\", \"is_eu\",\"geoname_id\",\"city\",\"region\",\"lat\",\"lon\",\"tz_id\",\"localtime_epoch\",\"localtime\"],\r",
+							"    \"properties\":{\r",
+							"        \"ip\": {\"type\":\"string\"},\r",
+							"        \"type\":{\"type\":\"string\"},\r",
+							"        \"continent_code\":{\"type\":\"string\"},\r",
+							"        \"continent_name\":{\"type\":\"string\"},\r",
+							"        \"country_code\":{\"type\":\"string\"},\r",
+							"        \"country_name\":{\"type\":\"string\"},\r",
+							"        \"is_eu\": {\"type\":\"string\"},\r",
+							"        \"geoname_id\": {\"type\":\"null\"},\r",
+							"        \"city\": {\"type\":\"null\"},\r",
+							"        \"region\":{\"type\":\"string\"},\r",
+							"        \"lat\": {\"type\":\"number\"},\r",
+							"        \"lon\": {\"type\":\"number\"},\r",
+							"        \"tz_id\":{\"type\":\"string\"},\r",
+							"        \"localtime_epoch\":{\"type\":\"number\"},\r",
+							"        \"localtime\":{\"type\":\"string\"},   \r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"pm.test(\"Run tests. Expect response have all required properties\",function() {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"})\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/ip.json?q=auto:ip",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"ip.json"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "auto:ip"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": {
+			"in": "header",
+			"value": "d721d6332ba141b9a7d103734220209",
+			"key": "key"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.variables.set(\"q\",pm.variables.replaceIn('{{$randomCity}}'))"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://api.weatherapi.com/v1",
+			"type": "string"
+		},
+		{
+			"key": "q",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
